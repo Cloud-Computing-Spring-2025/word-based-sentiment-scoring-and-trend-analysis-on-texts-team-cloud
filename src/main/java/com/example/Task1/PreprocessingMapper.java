@@ -20,13 +20,22 @@ public class PreprocessingMapper extends Mapper<Object, Text, Text, Text> {
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         // Initialize stop words.
-        stopWords.add("the");
-        stopWords.add("and");
-        stopWords.add("a");
-        stopWords.add("an");
-        stopWords.add("in");
-        stopWords.add("of");
-        stopWords.add("to");
+         String[] stopArray = {
+    "the", "and", "a", "an", "in", "of", "to", "is", "are", "was", "were",
+    "it", "this", "that", "on", "for", "with", "as", "by", "at", "from",
+    "or", "but", "not", "be", "have", "has", "had", "i", "you", "he", "she",
+    "they", "we", "me", "him", "her", "them", "my", "your", "their", "our",
+    "so", "do", "does", "did", "will", "would", "can", "could", "just", "about",
+    "into", "than", "then", "out", "up", "down", "over", "under", "chapter", "ii",
+    "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii",
+    "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx", "xxi", "xxii", "xxiii", "xxiv",
+    "xxv", "xxvi", "xxvii", "xxviii", "xxix", "xxx", "xxxi", "xxxii", "xxxiii", "xxxiv", "xxxv",
+    "xxxvi", "xxxvii", "xxxviii", "xxxix", "xl", "xli", "xlii", "xliii", "xliv", "xlv", "xlvi", "xlvii", "xlviii", "xlix", "l"
+};
+
+        for (String sw : stopArray) {
+            stopWords.add(sw);
+        }
         // Retrieve the file name from the input split.
         FileSplit fileSplit = (FileSplit) context.getInputSplit();
         fileName = fileSplit.getPath().getName();
@@ -60,8 +69,8 @@ public class PreprocessingMapper extends Mapper<Object, Text, Text, Text> {
         String cleanedText = cleanText(content);
 
         // Set composite key as "bookID_year" and value as "title[TAB]cleanedText".
-        outKey.set(bookID + "_" + year);
-        outValue.set(title + "\t" + cleanedText);
+        outKey.set(bookID + "_" + year + "_" + title);
+        outValue.set(cleanedText);
         context.write(outKey, outValue);
     }
 
@@ -70,7 +79,7 @@ public class PreprocessingMapper extends Mapper<Object, Text, Text, Text> {
         Pattern pattern = Pattern.compile("Title:\\s*(.*)");
         Matcher matcher = pattern.matcher(content);
         if (matcher.find()) {
-            return matcher.group(1).trim();
+            return matcher.group(1).trim().toLowerCase();
         }
         return "";
     }
