@@ -1,3 +1,6 @@
-com/example/Task1/PreprocessingMapper.class
+com/example/Task2/WordFrequencyDriver.class
+com/example/Task2/WordFrequencyReducer.class
 com/example/Task1/PreprocessingDriver.class
+com/example/Task1/PreprocessingMapper.class
+com/example/Task2/WordFrequencyMapper.class
 com/example/Task1/PreprocessingReducer.class
