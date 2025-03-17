@@ -90,6 +90,41 @@ docker cp resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/task_2/ share
 
 ---
 
+---
+
+## **Task 3: Sentiment Scoring**
+This step assigns sentiment scores to texts by mapping words to sentiment values using a sentiment lexicon, ensuring that scores are traceable to individual books using a MapReduce job.
+
+### **1️⃣ Build the Maven Project**
+```sh
+mvn install
+```
+
+### **2️⃣ Move JAR Files to the Shared Folder**
+```sh
+mv target/*.jar shared-folder/input/code/
+```
+
+### **3️⃣ Copy JAR to Hadoop Docker Container**
+```sh
+docker cp shared-folder/input/code/ resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp shared-folder/input/data/AFINN-111.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+```
+
+### **4️⃣ Run Hadoop Job**
+```sh
+docker exec -it resourcemanager /bin/bash
+cd /opt/hadoop-2.7.4/share/hadoop/mapreduce/
+hadoop fs -put ./AFINN-111.txt /input/dataset
+hadoop jar code/SentimentScoringJob.jar /output/part-r-00000 /output/task_3
+hadoop fs -cat /output/task_3/*
+hdfs dfs -get /output/task_3 /opt/hadoop-2.7.4/share/hadoop/mapreduce/
+exit
+docker cp resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/task_3/ shared-folder/output/Task3
+```
+
+---
+
 ## **Output**
 After running both tasks, the final processed data will be stored in:
 - **`shared-folder/output/`** for **Task 1 (Preprocessing)**
