@@ -1,47 +1,47 @@
 package com.example.Task2;
 
-import opennlp.tools.lemmatizer.LemmatizerME;
-import opennlp.tools.lemmatizer.LemmatizerModel;
-import opennlp.tools.tokenize.WhitespaceTokenizer;
-import java.io.FileInputStream;
+import edu.stanford.nlp.simple.Sentence;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WordFrequencyMapper extends Mapper<Object, Text, Text, Text> {
-    private Text bookID = new Text();
-    private Text word = new Text();
-    private LemmatizerME lemmatizer;
-
-    @Override
-    protected void setup(Context context) throws IOException {
-        // Load the lemmatizer model
-        InputStream modelInputStream = new FileInputStream("/workspaces/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/src/main/java/com/example/models/en-lemmatizer.bin");
-        LemmatizerModel model = new LemmatizerModel(modelInputStream);
-        lemmatizer = new LemmatizerME(model);
-    }
+public class WordFrequencyMapper extends Mapper<Object, Text, Text, IntWritable> {
+    private Text compositeKey = new Text();
+    private final static IntWritable one = new IntWritable(1);
 
     @Override
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-        String[] parts = value.toString().split("\t", 2);
-        if (parts.length < 2) return; // Skip malformed lines
-
-        String bookIDStr = parts[0].trim();
-        bookID.set(bookIDStr);
-
-        String text = parts[1].toLowerCase().replaceAll("[^a-zA-Z ]", ""); // Clean text
-        String[] tokens = WhitespaceTokenizer.INSTANCE.tokenize(text);
-
-        String[] posTags = new String[tokens.length];
-        for (int i = 0; i < tokens.length; i++) posTags[i] = "NN"; // Default POS tag
-
-        String[] lemmas = lemmatizer.lemmatize(tokens, posTags);
+        // Each input line is expected to be in the format:
+        // "105_1994_persuasion<TAB>project gutenberg ebook persuasion ebook use anyone anywhere united states most other parts world no cos"
+        String line = value.toString().trim();
+        if (line.isEmpty()) return;
+        
+        String[] parts = line.split("\t", 2);
+        if (parts.length < 2) return;  // Skip malformed lines
+        
+        // Parse the header part "105_1994_persuasion"
+        String header = parts[0].trim();
+        String[] headerParts = header.split("_", 3);
+        if (headerParts.length < 3) return;
+        String bookID = headerParts[0].trim();
+        String year = headerParts[1].trim();
+        // The title (headerParts[2]) is available if needed, but for key we need only bookID and year.
+        
+        // Get the cleaned text from Task 1 output
+        String text = parts[1].trim();
+        
+        // Use Stanford CoreNLP Simple API to perform lemmatization.
+        // The Sentence class automatically tokenizes and lemmatizes the input text.
+        Sentence sentence = new Sentence(text);
+        List<String> lemmas = sentence.lemmas();
+        
+        // Emit key-value pairs: key "bookID, lemma, year" and value 1.
         for (String lemma : lemmas) {
-            if (!lemma.equals("O")) { // Exclude "O" (no lemma found)
-                word.set(lemma);
-                context.write(bookID, word);
+            if (lemma != null && !lemma.isEmpty()) {
+                compositeKey.set(bookID + ", " + lemma + ", " + year);
+                context.write(compositeKey, one);
             }
         }
     }
