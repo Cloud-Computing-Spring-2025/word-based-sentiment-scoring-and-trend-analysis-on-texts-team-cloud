@@ -128,7 +128,7 @@
               </relocations>
             </configuration>
           </execution>
-
+<!-- Execution for Task 3: -->
           <execution>
             <id>sentiment-scoring-jar</id>
             <phase>package</phase>
@@ -145,6 +145,23 @@
               
             </configuration>
           </execution>
+<!-- Execution for Task 4: -->
+          <execution>
+            <id>trend-analysis-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>TrendAnalysisJob</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.example.Task4.TrendAnalysisDriver</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+
         </executions>
       </plugin>
     </plugins>
