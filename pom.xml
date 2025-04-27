@@ -67,6 +67,24 @@
       <artifactId>protobuf-java</artifactId>
       <version>3.8.0</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.hive</groupId>
+      <artifactId>hive-exec</artifactId>
+      <version>2.3.9</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.pentaho</groupId>
+          <artifactId>pentaho-aggdesigner-algorithm</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.calcite</groupId>
+          <artifactId>calcite-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -161,7 +179,22 @@
               </transformers>
             </configuration>
           </execution>
-
+          <!-- Task 5: Bigram Analysis using Hive UDF -->
+          <execution>
+            <id>task5-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>BigramUDFJob</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>com.example.task5.YourTask5DriverClass</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
     </plugins>
