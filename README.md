@@ -58,7 +58,6 @@ docker cp resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/output/ share
 ```
 
 ---
-
 ## **Task 2: Word Frequency Analysis**
 This step computes word frequencies and applies lemmatization using a MapReduce job.
 
@@ -89,7 +88,6 @@ docker cp resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/task_2/ share
 ```
 
 ---
-
 ---
 
 ## **Task 3: Sentiment Scoring**
@@ -122,7 +120,6 @@ hdfs dfs -get /output/task_3 /opt/hadoop-2.7.4/share/hadoop/mapreduce/
 exit
 docker cp resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/task_3/ shared-folder/output/Task3
 ```
-
 ---
 
 ## **Output**
@@ -194,7 +191,6 @@ docker compose up -d
 ### 6️⃣ Retrieve Output from HDFS
 
 ---
-
 
 # Task 5 - Hive UDF Bigram Extraction - Complete Commands
 
@@ -315,4 +311,5 @@ exit
 
 docker cp hive-server:/opt/task5_bigram_output /workspaces/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/shared-folder/output/Task5
 ```
+
 
