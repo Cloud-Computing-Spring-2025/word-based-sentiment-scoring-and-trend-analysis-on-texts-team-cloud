@@ -1,4 +1,4 @@
-package com.example.task5;
+package com.example.Task5;
 
 import org.apache.hadoop.hive.ql.exec.UDF;
 import org.apache.hadoop.io.Text;
